@@ -21,6 +21,7 @@ function App() {
           
           
           <Route path="/" element={<SearchInput />} />
+          <Route path="/react-search" element={<SearchInput />} />
        </Routes>
        </BrowserRouter>
     </>
