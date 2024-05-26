@@ -3,19 +3,21 @@ import './SearchInput.css';
 
 
 function SearchInput() {
-
+  const corsProxy = 'https://api.allorigins.win/get?url=';   //Used this because http method not supported for fetching data
+  
     const[searchText,setSearchText] = useState('')
     const[searchResult,setSearchResult] = useState([])
     // console.log(searchText);
 
     
     const fetchSearch = async()=>{ 
-         
+      const apiUrl = `http://16.171.5.90/public/api/searchtext/${searchText}`; 
         // const response = await fetch(`http://www.searchengine.test/api/searchtext/${searchText}`);
-        const response = await fetch(`http://16.171.5.90/public/api/searchtext/${searchText}`);
+        const response = await fetch(`${corsProxy}${encodeURIComponent(apiUrl)}`);
         const data = await response.json()
-        setSearchResult(data.items)
-        console.log(data);
+        const result = JSON.parse(data.contents);
+        setSearchResult(result.items)
+        console.log(result);
        
       }
 
