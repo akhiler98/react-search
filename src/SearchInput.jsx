@@ -3,7 +3,7 @@ import './SearchInput.css';
 
 
 function SearchInput() {
-  const corsProxy = 'https://api.allorigins.win/get?url=';   //Used this because http method not supported for fetching data
+  const corsProxy = 'https://api.allorigins.win/get?url=';   //Used this because https method not supported for fetching data
   
     const[searchText,setSearchText] = useState('')
     const[searchResult,setSearchResult] = useState([])
@@ -15,9 +15,9 @@ function SearchInput() {
         // const response = await fetch(`http://www.searchengine.test/api/searchtext/${searchText}`);
         const response = await fetch(`${corsProxy}${encodeURIComponent(apiUrl)}`);
         const data = await response.json()
-        const result = JSON.parse(data.contents);
+        const result = JSON.parse(data.contents); //for converting json string in to javascript objects
         setSearchResult(result.items)
-        console.log(result);
+        // console.log(result);
        
       }
 
@@ -36,7 +36,7 @@ function SearchInput() {
     <div className= 'mainContainer'>
         <div className= {searchResult.length >1 ? 'mainContainer-headNone' : 'mainContainer-head'}>
             <h1 className={ searchResult.length>1 ?'mainContainer-head_none' : 'mainContainer-head_title'}>Search Engine</h1>
-             <div className='mainContainer-head_input'>
+             <div className={ searchResult.length>1 ?'mainContainer-head_inputNone': 'mainContainer-head_input'}>
             <input className='inputField' placeholder='search...' value={searchText} type="text" onChange={(e)=>{setSearchText(e.target.value)}} />
             <button className='button' onClick={fetchSearch}>search</button>
             {
